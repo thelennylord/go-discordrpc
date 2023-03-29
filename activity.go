@@ -1,8 +1,11 @@
 package discordrpc
 
 import (
+	"os"
 	"strconv"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 // Activity holds the data for discord rich presence
@@ -61,5 +64,13 @@ type Button struct {
 
 // SetActivity sets the Rich Presence activity for the running application
 func (c *Client) SetActivity(activity Activity) error {
-	return c.SendCommand(SetActivityCommand, activity)
+	payload := Payload{
+		Cmd: SetActivityCommand,
+		Args: Args{
+			Pid:      os.Getpid(),
+			Activity: &activity,
+		},
+		Nonce: uuid.New(),
+	}
+	return c.SendPayload(payload)
 }

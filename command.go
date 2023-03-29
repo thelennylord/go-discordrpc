@@ -3,7 +3,6 @@ package discordrpc
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 
 	"github.com/google/uuid"
 )
@@ -72,7 +71,7 @@ const (
 	CloseActivityRequestCommand command = "CLOSE_ACTIVITY_REQUEST"
 )
 
-type payload struct {
+type Payload struct {
 	Cmd   command   `json:"cmd"`
 	Args  Args      `json:"args"`
 	Event string    `json:"evt,omitempty"`
@@ -80,27 +79,10 @@ type payload struct {
 	Nonce uuid.UUID `json:"nonce"`
 }
 
-func (c *Client) SendCommand(command command, data interface{}) error {
-	// The nonce can be used to tie up the response with the request
-	nonce := uuid.New()
-
-	pl := payload{
-		Cmd:   command,
-		Nonce: nonce,
-		Args: Args{
-			Pid: os.Getpid(),
-		},
-	}
-
-	// This might not be the best method of doing this but it seems better than passing Args
-	switch data.(type) {
-	case Activity:
-		a := data.(Activity)
-		pl.Args.Activity = &a
-	}
-
+// Sends payload to the Discord RPC server
+func (c *Client) SendPayload(payload Payload) error {
 	// Marshal the payload into JSON
-	rb, err := json.Marshal(pl)
+	rb, err := json.Marshal(payload)
 	if err != nil {
 		return err
 	}
@@ -112,7 +94,7 @@ func (c *Client) SendCommand(command command, data interface{}) error {
 	}
 
 	// Response usually matches the outgoing request, also a payload
-	var responseBody payload
+	var responseBody Payload
 	if err := json.Unmarshal([]byte(r), &responseBody); err != nil {
 		return err
 	}
@@ -122,7 +104,7 @@ func (c *Client) SendCommand(command command, data interface{}) error {
 		return fmt.Errorf(responseBody.Data.Message)
 	}
 
-	if responseBody.Nonce != nonce {
+	if responseBody.Nonce != payload.Nonce {
 		return fmt.Errorf("invalid nonce")
 	}
 
