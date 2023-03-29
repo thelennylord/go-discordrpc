@@ -80,7 +80,7 @@ type payload struct {
 	Nonce uuid.UUID `json:"nonce"`
 }
 
-func (c *Client) sendCommand(command command, data interface{}) error {
+func (c *Client) SendCommand(command command, data interface{}) error {
 	// The nonce can be used to tie up the response with the request
 	nonce := uuid.New()
 

@@ -61,5 +61,5 @@ type Button struct {
 
 // SetActivity sets the Rich Presence activity for the running application
 func (c *Client) SetActivity(activity Activity) error {
-	return c.sendCommand(SetActivityCommand, activity)
+	return c.SendCommand(SetActivityCommand, activity)
 }
