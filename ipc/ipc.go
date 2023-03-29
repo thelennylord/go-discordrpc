@@ -53,7 +53,6 @@ func (socket *Socket) Read() (string, error) {
 func (socket *Socket) Send(opcode int, payload string) (string, error) {
 	buf := new(bytes.Buffer)
 
-	fmt.Println(payload)
 	err := binary.Write(buf, binary.LittleEndian, int32(opcode))
 	if err != nil {
 		return "", err
