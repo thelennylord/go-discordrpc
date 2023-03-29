@@ -14,6 +14,7 @@ type Activity struct {
 	Assets     *Assets     `json:"assets,omitempty"`
 	Party      *Party      `json:"party,omitempty"`
 	Secrets    *Secrets    `json:"secrets,omitempty"`
+	Buttons    []*Button   `json:"buttons,omitempty"`
 
 	Instance bool `json:"instance"`
 }
@@ -51,6 +52,11 @@ type Secrets struct {
 	Join     string `json:"join,omitempty"`
 	Spectate string `json:"spectate,omitempty"`
 	Match    string `json:"match,omitempty"`
+}
+
+type Button struct {
+	Label string `json:"label,omitempty"`
+	Url   string `json:"url,omitempty"`
 }
 
 // SetActivity sets the Rich Presence activity for the running application

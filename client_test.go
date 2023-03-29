@@ -2,13 +2,14 @@ package discordrpc
 
 import (
 	"os"
+	"testing"
 	"time"
 )
 
-func Example() {
+func TestClient(t *testing.T) {
 	drpc, err := New(os.Getenv("DISCORD_CLIENTID"))
 	if err != nil {
-		panic(err)
+		t.Fatalf("failed to connect to discord ipc: %v", err)
 	}
 	defer drpc.Socket.Close()
 
@@ -22,8 +23,19 @@ func Example() {
 		Timestamps: &Timestamps{
 			Start: &Epoch{Time: time.Now()},
 		},
+		Buttons: []*Button{
+			{
+				Label: "Button 1",
+				Url:   "https://www.google.com",
+			},
+			{
+				Label: "Button 2",
+				Url:   "https://www.youtube.com",
+			},
+		},
 	})
+
 	if err != nil {
-		panic(err)
+		t.Fatalf("failed to set activity: %v", err)
 	}
 }
