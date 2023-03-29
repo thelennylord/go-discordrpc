@@ -13,7 +13,7 @@ type Activity struct {
 	Timestamps *Timestamps `json:"timestamps,omitempty"`
 	Assets     *Assets     `json:"assets,omitempty"`
 	Party      *Party      `json:"party,omitempty"`
-	Secrets    *Secrets    `json:"screts,omitempty"`
+	Secrets    *Secrets    `json:"secrets,omitempty"`
 
 	Instance bool `json:"instance"`
 }
@@ -49,7 +49,7 @@ type Party struct {
 // Secrets holds secrets for Rich Presence joining and spectating
 type Secrets struct {
 	Join     string `json:"join,omitempty"`
-	Spectate string `json:"spectate,emitempty"`
+	Spectate string `json:"spectate,omitempty"`
 	Match    string `json:"match,omitempty"`
 }
 
