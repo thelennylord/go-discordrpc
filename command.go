@@ -74,7 +74,7 @@ const (
 type Payload struct {
 	Cmd   command   `json:"cmd"`
 	Args  Args      `json:"args"`
-	Event string    `json:"evt,omitempty"`
+	Event event     `json:"evt,omitempty"`
 	Data  *Data     `json:"data,omitempty"`
 	Nonce uuid.UUID `json:"nonce"`
 }

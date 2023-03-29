@@ -16,3 +16,10 @@ type Args struct {
 	Pid      int       `json:"pid"`
 	Activity *Activity `json:"activity,omitempty"`
 }
+
+type User struct {
+	Id            string `json:"id"`
+	Username      string `json:"username"`
+	Discriminator string `json:"discriminator"`
+	Avatar        string `json:"avatar"`
+}
