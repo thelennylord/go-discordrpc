@@ -43,7 +43,7 @@ func (socket *Socket) Read() (string, error) {
 
 	r := buffer.String()
 	if r == "" {
-		return "", fmt.Errorf("Empty response")
+		return "", fmt.Errorf("empty response")
 	}
 
 	return r, nil
