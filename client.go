@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/thelennylord/discord-rpc/ipc"
+	"github.com/thelennylord/go-discordrpc/ipc"
 )
 
 // Client wrapper for the Discord RPC client

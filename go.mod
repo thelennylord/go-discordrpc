@@ -1,4 +1,4 @@
-module github.com/thelennylord/discord-rpc
+module github.com/thelennylord/go-discordrpc
 
 go 1.20
 
