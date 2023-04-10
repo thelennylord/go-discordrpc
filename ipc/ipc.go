@@ -30,7 +30,7 @@ type Socket struct {
 
 // Read the socket response
 func (socket *Socket) Read() (string, error) {
-	buf := make([]byte, 512)
+	buf := make([]byte, 5120)
 	payloadlength, err := socket.Conn.Read(buf)
 	if err != nil {
 		return "", err
