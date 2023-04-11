@@ -6,10 +6,18 @@ import (
 	"time"
 )
 
-func TestClient(t *testing.T) {
+func TestNewClient(t *testing.T) {
 	drpc, err := New(os.Getenv("DISCORD_CLIENTID"))
 	if err != nil {
-		t.Fatalf("failed to connect to discord ipc: %v", err)
+		t.Fatalf("Failed to create new client: %v", err)
+	}
+	defer drpc.Socket.Close()
+}
+
+func TestSetActivity(t *testing.T) {
+	drpc, err := New(os.Getenv("DISCORD_CLIENTID"))
+	if err != nil {
+		t.Fatalf("Failed to create new client: %v", err)
 	}
 	defer drpc.Socket.Close()
 
@@ -36,6 +44,19 @@ func TestClient(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Fatalf("failed to set activity: %v", err)
+		t.Fatalf("Failed to set activity: %v", err)
+	}
+}
+
+func TestRegisterGame(t *testing.T) {
+	drpc, err := New(os.Getenv("DISCORD_CLIENTID"))
+	if err != nil {
+		t.Fatalf("Failed to create new client: %v", err)
+	}
+	defer drpc.Socket.Close()
+
+	err = drpc.RegisterCommand("foo://bar", "")
+	if err != nil {
+		t.Fatalf("Failed to register game: %v", err)
 	}
 }
